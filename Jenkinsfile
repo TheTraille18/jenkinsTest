@@ -37,9 +37,9 @@ pipeline {
             branch 'staging'
           }
           steps {
-            withAWS(region:'<your-bucket-region>',credentials:'<AWS-Staging-Jenkins-Credential-ID>') {
-              s3Delete(bucket: '<bucket-name>', path:'**/*')
-              s3Upload(bucket: '<bucket-name>', workingDir:'build', includePathPattern:'**/*');
+            withAWS(region:'us-east-1',credentials:'jetkins') {
+              s3Delete(bucket: 'jenkins-test-11-02-19', path:'**/*')
+              s3Upload(bucket: 'jenkins-test-11-02-19', workingDir:'build', includePathPattern:'**/*');
             }
             mail(subject: 'Staging Build', body: 'New Deployment to Staging', to: 'jenkins-mailing-list@mail.com')
           }
@@ -49,9 +49,9 @@ pipeline {
             branch 'master'
           }
           steps {
-            withAWS(region:'<your-bucket-region>',credentials:'<AWS-Production-Jenkins-Credential-ID>') {
-              s3Delete(bucket: '<bucket-name>', path:'**/*')
-              s3Upload(bucket: '<bucket-name>', workingDir:'build', includePathPattern:'**/*');
+            withAWS(region:'us-east-1',credentials:'jetkins') {
+              s3Delete(bucket: 'jenkins-test-11-02-19', path:'**/*')
+              s3Upload(bucket: 'jenkins-test-11-02-19', workingDir:'build', includePathPattern:'**/*');
             }
             mail(subject: 'Production Build', body: 'New Deployment to Production', to: 'jenkins-mailing-list@mail.com')
           }
